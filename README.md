@@ -1,2 +1,4 @@
-# C-mara-Cidad-
-O projeto visa modernizar a transparência da Câmara Municipal, centralizando dados legislativos em uma plataforma de fácil acesso. Ele resolve a falta de clareza na prestação de contas, permitindo que a própria Casa alimente dados sobre votos, projetos e desempenho parlamentar, transformando registros brutos em indicadores ágeis para o cidadão.
+# Câmara Cidadã
+A Câmara Municipal de Cabo de São Domingos - RN solicitou o desenvolvimento de uma solução tecnológica para modernizar a transparência de suas atividades legislativas. O objetivo é substituir processos manuais ou arquivos de difícil acesso por um sistema centralizado, que permita à própria casa legislativa alimentar e gerenciar o desempenho dos parlamentares, a tramitação de projetos e os registros de votos.
+
+O projeto resolve o problema da fragmentação de informações públicas, evitando que o cidadão tenha dificuldade em fiscalizar a atuação de seus representantes. Através desta plataforma, é possível <i>acompanhar o ciclo completo de uma lei — da proposição à votação final — transformando dados brutos em estatísticas gerenciáveis e acessíveis</i>, garantindo que a prestação de contas seja pautada em dados reais, ágeis e transparentes.
