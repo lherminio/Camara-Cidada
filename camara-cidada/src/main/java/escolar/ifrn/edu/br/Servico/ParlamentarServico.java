@@ -48,7 +48,7 @@ public class ParlamentarServico {
             throw new IllegalArgumentException("Erro de Regra: ID inválido para inativação.");
         }
         Parlamentar parlamentar = buscarPorId(id);
-        parlamentar.inativar();
+        parlamentar.setAtivo(false);
         repositorio.atualizar(parlamentar);
     }
 

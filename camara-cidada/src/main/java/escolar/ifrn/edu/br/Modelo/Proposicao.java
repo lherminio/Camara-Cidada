@@ -42,4 +42,9 @@ public class Proposicao {
 
     public String getPdfProjeto() { return pdfProjeto; }
     public void setPdfProjeto(String pdfProjeto) { this.pdfProjeto = pdfProjeto; }
+
+    @Override
+    public String toString() {
+    return "Proposicao{id=" + id + ", numeroProjeto=" + numeroProjeto + "/" + ano +
+           ", titulo='" + titulo + "', autor='" + autor + "', status='" + status + "'}";}
 }

@@ -25,9 +25,9 @@ public class Main {
         p1.setAtivo(true);
 
         Parlamentar p2 = new Parlamentar();
-        p2.setNomeCompleto("Júlia Alves Barbosa Cavalcanti");
-        p2.setNomeParlamentar("Júlia Alves Barbosa");
-        p2.setPartido("PSD");
+        p2.setNomeCompleto("Juvenal Lamartine de Faria");
+        p2.setNomeParlamentar("Juvenal Lamartine");
+        p2.setPartido("UDN");
         p2.setLegislatura(1963);
         p2.setAtivo(true);
 
