@@ -1,11 +1,19 @@
 package escolar.ifrn.edu.br;
 
 import escolar.ifrn.edu.br.Modelo.Parlamentar;
+import escolar.ifrn.edu.br.Modelo.Proposicao;
+import escolar.ifrn.edu.br.Modelo.Votacao;
+import escolar.ifrn.edu.br.Modelo.Voto;
 import escolar.ifrn.edu.br.Servico.ParlamentarServico;
+import escolar.ifrn.edu.br.Servico.ProposicaoServico;
+import escolar.ifrn.edu.br.Servico.VotacaoServico;
 
 public class Main {
     public static void main(String[] args) {
+
         ParlamentarServico parlamentarServico = new ParlamentarServico();
+        ProposicaoServico proposicaoServico = new ProposicaoServico();
+        VotacaoServico votacaoServico = new VotacaoServico();
 
         System.out.println("\n--- [C] - INSERINDO Parlamentares no MySQL (Pré-criado via Workbench) ---");
 
@@ -79,5 +87,80 @@ public class Main {
 
         System.out.println("\nEstado final da tabela no MySQL:");
         parlamentarServico.listarParlamentares().forEach(System.out::println);
+
+        System.out.println("\n--- [C] - INSERINDO Proposições no MySQL ---");
+
+        Proposicao pl1 = new Proposicao();
+        pl1.setTitulo("Construção de Posto de Saúde no Bairro Norte");
+        pl1.setNumeroProjeto(1);
+        pl1.setAno(1963);
+        pl1.setAutor(p1.getNomeParlamentar());
+        pl1.setEmenta("Dispõe sobre a construção de um posto de saúde para atendimento à população do Bairro Norte.");
+        pl1.setCategoria("Saúde");
+        pl1.setStatus("Em Tramitação");
+        pl1.setPdfProjeto("https://exemplo.com/pl-001-1963.pdf");
+
+        Proposicao pl2 = new Proposicao();
+        pl2.setTitulo("Criação de Escola Noturna para Adultos");
+        pl2.setNumeroProjeto(2);
+        pl2.setAno(1963);
+        pl2.setAutor(p4.getNomeParlamentar());
+        pl2.setEmenta("Institui escola noturna voltada à alfabetização de adultos no município.");
+        pl2.setCategoria("Educação");
+        pl2.setStatus("Em Tramitação");
+        pl2.setPdfProjeto("https://exemplo.com/pl-002-1963.pdf");
+
+        Proposicao pl3 = new Proposicao();
+        pl3.setTitulo("Pavimentação da Estrada Vicinal do Distrito Sul");
+        pl3.setNumeroProjeto(3);
+        pl3.setAno(1963);
+        pl3.setAutor(p5.getNomeParlamentar());
+        pl3.setEmenta("Autoriza a pavimentação da estrada que liga o Distrito Sul à sede do município.");
+        pl3.setCategoria("Infraestrutura");
+        pl3.setStatus("Em Tramitação");
+        pl3.setPdfProjeto("https://exemplo.com/pl-003-1963.pdf");
+
+        proposicaoServico.cadastrarProposicao(pl1);
+        proposicaoServico.cadastrarProposicao(pl2);
+        proposicaoServico.cadastrarProposicao(pl3);
+
+        System.out.println("\n--- [R] - SELECIONANDO e exibindo as proposições ---");
+        proposicaoServico.listarProposicoes().forEach(System.out::println);
+
+        System.out.println("\n--- [C] - REGISTRANDO Votação Nominal (RF03) ---");
+
+        Votacao votacao1 = new Votacao();
+        votacao1.setProposicao(pl1);
+
+        votacao1.getVotos().add(criarVoto(p1, "SIM"));
+        votacao1.getVotos().add(criarVoto(p2, "SIM"));
+        votacao1.getVotos().add(criarVoto(p3, "NAO"));
+        votacao1.getVotos().add(criarVoto(p4, "SIM"));
+        votacao1.getVotos().add(criarVoto(p5, "ABSTENCAO"));
+        votacao1.getVotos().add(criarVoto(p6, "SIM"));
+        votacao1.getVotos().add(criarVoto(p7, "AUSENCIA"));
+
+        votacaoServico.registrarVotacao(votacao1);
+
+        System.out.println("\n--- [R] - SELECIONANDO e exibindo as votações ---");
+        votacaoServico.listarVotacoes().forEach(v -> {
+            System.out.println("Votação da proposição nº " + v.getProposicao().getNumeroProjeto() +
+                                "/" + v.getProposicao().getAno() + " - Resultado: " + v.calcularResultado());
+            v.getVotos().forEach(voto ->
+                System.out.println("   " + voto.getParlamentar().getNomeParlamentar() + ": " + voto.getVoto())
+            );
+        });
+
+        System.out.println("\n--- [U] - ATUALIZANDO status da Proposição após a votação ---");
+        pl1.setStatus(votacao1.calcularResultado().equals("APROVADO") ? "Aprovado" : "Reprovado");
+        proposicaoServico.alterarDadosProposicao(pl1);
+        proposicaoServico.listarProposicoes().forEach(System.out::println);
+    }
+
+    private static Voto criarVoto(Parlamentar parlamentar, String voto) {
+        Voto v = new Voto();
+        v.setParlamentar(parlamentar);
+        v.setVoto(voto);
+        return v;
     }
 }
